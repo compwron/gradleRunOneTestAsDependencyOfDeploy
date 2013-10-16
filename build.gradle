@@ -1,5 +1,3 @@
-description = 'Transformer module for Loki'
-
 repositories {
     mavenCentral()
 }
@@ -8,12 +6,13 @@ project.buildDir = 'target'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
-
 apply from: 'gradle/localDeploy.gradle'
 apply from: 'gradle/seedData.gradle'
 
 dependencies{
 	testCompile 'junit:junit:4.11'
+}
+
+task otherTask(){
+	println("Should not run loadSeedData")
 }

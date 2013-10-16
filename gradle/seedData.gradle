@@ -1,22 +1,19 @@
-sourceSets {
-    List<String> srcResources =  ['src/main/java']
 
-    seedDataSources {
-        java {
+sourceSets {
+  seedDataSources {
+    java {
             srcDir 'src/test/spike'
             srcDirs += srcResources
         }
         resources {
             srcDir 'src/test/manual_test_data/resources'
         }
-        compileClasspath += sourceSets.main.compileClasspath
-        compileClasspath += sourceSets.test.compileClasspath
-        runtimeClasspath += sourceSets.main.runtimeClasspath
-        runtimeClasspath += sourceSets.test.runtimeClasspath
-    }
+    compileClasspath = sourceSets.main.output + configurations.testRuntime
+    runtimeClasspath = output + sourceSets.main.output + configurations.testRuntime
+  }
 }
 
-task loadSeedData(type: Test){
+task loadSeedData(type: Test) {
     println("loading seed data")
     testClassesDir = sourceSets.seedDataSources.output.classesDir
     classpath = sourceSets.seedDataSources.runtimeClasspath
